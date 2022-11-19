@@ -12,6 +12,7 @@ namespace MVC.Mapper
             CreateMap<Category, CategoryResponse>().ReverseMap();
             CreateMap<Category, CategoryRequest>().ReverseMap();
 
+            CreateMap<Thing, CreateThingViewModel>().ReverseMap();
             CreateMap<Thing, ThingViewModel>().ReverseMap();
         }
     }

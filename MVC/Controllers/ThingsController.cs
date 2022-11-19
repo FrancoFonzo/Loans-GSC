@@ -62,11 +62,10 @@ namespace MVC.Controllers
         // POST: Things/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ThingViewModel thingVModel)
+        public IActionResult Create(CreateThingViewModel thingVModel)
         {
             if (!ModelState.IsValid)
             {
-                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 var categories = unitOfWork.CategoriesRepository.GetAll();
                 ViewData["Categories"] = new SelectList(categories, "Id", "Description");
                 return View(thingVModel);
@@ -94,7 +93,7 @@ namespace MVC.Controllers
 
             var thingVModel = mapper.Map<ThingViewModel>(thing);
             var categories = unitOfWork.CategoriesRepository.GetAll();
-            ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
+            ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.Category);
             return View(thingVModel);
         }
 
@@ -111,7 +110,7 @@ namespace MVC.Controllers
             if (!ModelState.IsValid)
             {
                 var categories = unitOfWork.CategoriesRepository.GetAll();
-                ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
+                ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.Category);
                 return View(thingVModel);
             }
 

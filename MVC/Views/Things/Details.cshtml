@@ -1,4 +1,4 @@
-﻿@model MVC.Entities.Thing
+﻿@model MVC.Models.ThingViewModel
 
 @{
     Layout = null;
@@ -22,12 +22,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
