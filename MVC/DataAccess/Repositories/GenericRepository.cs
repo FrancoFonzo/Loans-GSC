@@ -8,7 +8,7 @@ namespace MVC.DataAccess.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {
         private readonly LoansContext context;
-        private readonly DbSet<T> dbSet;
+        protected readonly DbSet<T> dbSet;
 
         public GenericRepository(LoansContext context)
         {
@@ -16,17 +16,17 @@ namespace MVC.DataAccess.Repositories
             dbSet = context.Set<T>();
         }
 
-        public IList<T> GetAll()
+        public virtual IList<T> GetAll()
         {
             return dbSet.ToList();
         }
 
-        public IList<T> GetByFilter(Expression<Func<T, bool>> filter)
+        public virtual IList<T> GetByFilter(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).ToList();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return dbSet.FirstOrDefault(t => t.Id == id);
         }

@@ -91,31 +91,31 @@ namespace MVC.Controllers
                 return NotFound("Thing not found");
             }
 
-            var thingVModel = mapper.Map<ThingViewModel>(thing);
+            var thingVModel = mapper.Map<CreateThingViewModel>(thing);
             var categories = unitOfWork.CategoriesRepository.GetAll();
-            ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.Category);
+            ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
             return View(thingVModel);
         }
 
         // POST: Things/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ThingViewModel thingVModel)
+        public IActionResult Edit(int id, CreateThingViewModel thingVModel)
         {
-            if (id != thingVModel.Id)
+            var thing = unitOfWork.ThingsRepository.GetById(id);
+            if (thing is null)
             {
                 return NotFound("Thing not found");
             }
-
+            
             if (!ModelState.IsValid)
             {
-                var categories = unitOfWork.CategoriesRepository.GetAll();
-                ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.Category);
+                //var categories = unitOfWork.CategoriesRepository.GetAll();
+                //ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
                 return View(thingVModel);
             }
-
-            var thing = mapper.Map<Thing>(thingVModel);
-            unitOfWork.ThingsRepository.Update(thing);
+            var thingToSave = mapper.Map<CreateThingViewModel, Thing>(thingVModel, thing);
+            unitOfWork.ThingsRepository.Update(thingToSave);
             unitOfWork.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

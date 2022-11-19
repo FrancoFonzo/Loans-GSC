@@ -9,11 +9,18 @@ namespace MVC.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Category, CategoryResponse>().ReverseMap();
-            CreateMap<Category, CategoryRequest>().ReverseMap();
+            CreateMap<Category, CategoryResponse>()
+                .ForMember(dest => dest.Things, opt => opt.MapFrom(src => src.Things.Select(t => t.Description)));
+            
+            CreateMap<CategoryRequest, Category>().ReverseMap();            
 
-            CreateMap<Thing, CreateThingViewModel>().ReverseMap();
-            CreateMap<Thing, ThingViewModel>().ReverseMap();
+            CreateMap<Thing, ThingViewModel>()
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+                .ReverseMap();
+            CreateMap<Thing, CreateThingViewModel>()
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
+                .ReverseMap();
+
         }
     }
 }

@@ -72,7 +72,7 @@ namespace MVC.Controllers
                 ModelState.AddModelError(nameof(categoryRequest.Description), "Category already exist");
                 return BadRequest(ModelState);
             }
-            
+
             category.Description = categoryRequest.Description;
 
             unitOfWork.CategoriesRepository.Update(category);
