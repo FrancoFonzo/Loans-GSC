@@ -7,8 +7,8 @@ using MVC.Models;
 
 namespace MVC.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
@@ -23,7 +23,7 @@ namespace MVC.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var categories = unitOfWork.CategoryRepository.GetAll();
+            var categories = unitOfWork.CategoriesRepository.GetAll();
             var categoriesResponses = mapper.Map<IEnumerable<CategoryResponse>>(categories);
             return Ok(categoriesResponses);
         }
@@ -32,7 +32,7 @@ namespace MVC.Controllers
         public IActionResult GetCategory(int id)
         {
             //TODO: check if map list<Things> of category
-            var category = unitOfWork.CategoryRepository.GetById(id);
+            var category = unitOfWork.CategoriesRepository.GetById(id);
             
             if (category is null)
                 return NotFound("Category not found");
@@ -42,53 +42,53 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CategoryRequest catRequest)
+        public IActionResult Create([FromBody] CategoryRequest categoryRequest)
         {
-            var catExists = unitOfWork.CategoryRepository.Exists(c => c.Description == catRequest.Description);
+            var catExists = unitOfWork.CategoriesRepository.Exists(c => c.Description == categoryRequest.Description);
             if (catExists)
             {
-                ModelState.AddModelError(nameof(catRequest.Description), "Category already exist");
+                ModelState.AddModelError(nameof(categoryRequest.Description), "Category already exist");
                 return BadRequest(ModelState);
             }
 
-            var cat = mapper.Map<Category>(catRequest);
+            var category = mapper.Map<Category>(categoryRequest);
 
-            unitOfWork.CategoryRepository.Create(cat);
+            unitOfWork.CategoriesRepository.Create(category);
             unitOfWork.SaveChanges();
-            return Ok(cat);
+            return Ok(category);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] CategoryRequest categoryRequest)
         {
-            var cat = unitOfWork.CategoryRepository.GetById(id);
+            var category = unitOfWork.CategoriesRepository.GetById(id);
 
-            if (cat is null)
+            if (category is null)
                 return NotFound("Category not found");
 
-            var catExists = unitOfWork.CategoryRepository.Exists(c => c.Description == categoryRequest.Description);
+            var catExists = unitOfWork.CategoriesRepository.Exists(c => c.Description == categoryRequest.Description);
             if (catExists)
             {
                 ModelState.AddModelError(nameof(categoryRequest.Description), "Category already exist");
                 return BadRequest(ModelState);
             }
             
-            cat.Description = categoryRequest.Description;
+            category.Description = categoryRequest.Description;
 
-            unitOfWork.CategoryRepository.Update(cat);
+            unitOfWork.CategoriesRepository.Update(category);
             unitOfWork.SaveChanges();
-            return Ok(cat);
+            return Ok(category);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var cat = unitOfWork.CategoryRepository.GetById(id);
+            var category = unitOfWork.CategoriesRepository.GetById(id);
             
-            if (cat is null)
+            if (category is null)
                 return NotFound("Category not found");
 
-            unitOfWork.CategoryRepository.Delete(cat.Id);
+            unitOfWork.CategoriesRepository.Delete(category.Id);
             unitOfWork.SaveChanges();
             return NoContent();
         }

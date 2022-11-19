@@ -10,12 +10,9 @@ namespace MVC.Mapper
         public AutoMapperProfiles()
         {
             CreateMap<Category, CategoryResponse>().ReverseMap();
-            //CreateMap<Thing, ThingResponse>().ReverseMap();
-            CreateMap<CategoryRequest, Category>().ReverseMap();
-            ////CreateMap<ThingCreationDto, Thing>();
+            CreateMap<Category, CategoryRequest>().ReverseMap();
 
-            CreateMap<Category, CategoryViewModel>().ReverseMap();
-            //CreateMap<Thing, ThingViewModel>().ReverseMap();
+            CreateMap<Thing, ThingViewModel>().ReverseMap();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Net;
 using System;
 using MVC.Entities;
+using MVC.Dto;
 
 namespace MVC.DataAccess
 {

@@ -1,4 +1,6 @@
-﻿namespace MVC.Dto
+﻿using MVC.Entities;
+
+namespace MVC.Dto
 {
     public class ThingResponse
     {
