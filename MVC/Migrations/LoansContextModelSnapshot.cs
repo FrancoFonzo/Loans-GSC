@@ -45,7 +45,7 @@ namespace MVC.Migrations
                     b.HasIndex("Description")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("MVC.Entities.Loan", b =>
@@ -74,7 +74,7 @@ namespace MVC.Migrations
 
                     b.HasIndex("ThingId");
 
-                    b.ToTable("Loans");
+                    b.ToTable("Loans", (string)null);
                 });
 
             modelBuilder.Entity("MVC.Entities.Person", b =>
@@ -103,7 +103,7 @@ namespace MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("MVC.Entities.Thing", b =>
@@ -131,7 +131,7 @@ namespace MVC.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Things");
+                    b.ToTable("Things", (string)null);
                 });
 
             modelBuilder.Entity("MVC.Entities.Loan", b =>

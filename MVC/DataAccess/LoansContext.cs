@@ -54,8 +54,21 @@ namespace MVC.DataAccess
                 .HasIndex(c => c.Description)
                 .IsUnique();
 
-            //TODO: Unique constraint for thing description and person email/phone?
+            //modelBuilder.Entity<Loan>()
+            //    .Property(l => l.CreateDate)
+            //    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+            //modelBuilder.Entity<Loan>()
+            //    .Property(l => l.ReturnDate)
+            //    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            //modelBuilder.Entity<Loan>()
+            //    .HasOne(l => l.Person)
+            //    .WithMany(p => p.Loans)
+            //    .HasForeignKey(l => l.PersonId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //TODO: Unique constraint for thing description and person email/phone?
         }
 
         public DbSet<Category> Categories { get; set; }

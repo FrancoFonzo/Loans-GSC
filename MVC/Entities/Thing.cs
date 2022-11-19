@@ -6,5 +6,6 @@
         public DateTime CreationDate { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public IList<Loan> Loans { get; set; }
     }
 }
