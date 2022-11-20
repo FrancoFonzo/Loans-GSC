@@ -25,7 +25,6 @@ namespace MVC.Controllers
             this.mapper = mapper;
         }
 
-        // GET: Things
         public IActionResult Index()
         {
             var things = unitOfWork.ThingsRepository.GetAll();
@@ -33,7 +32,6 @@ namespace MVC.Controllers
             return View(thingsResponses);
         }
 
-        // GET: Things/Details/5
         public IActionResult Details(int? id)
         {
             if (id is null)
@@ -51,7 +49,6 @@ namespace MVC.Controllers
             return View(thingVModel);
         }
 
-        // GET: Things/Create
         public IActionResult Create()
         {
             var categories = unitOfWork.CategoriesRepository.GetAll();
@@ -59,7 +56,6 @@ namespace MVC.Controllers
             return View();
         }
 
-        // POST: Things/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateThingViewModel thingVModel)
@@ -77,7 +73,6 @@ namespace MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Things/Edit/5
         public IActionResult Edit(int? id)
         {
             if (id is null)

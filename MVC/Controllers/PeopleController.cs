@@ -8,7 +8,7 @@ namespace MVC.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PeopleController : Controller
+    public class PeopleController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -40,7 +40,6 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create([FromBody] PersonRequest personRequest)
         {
             var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
@@ -56,9 +55,7 @@ namespace MVC.Controllers
             return Ok(person);
         }
 
-        // POST: PeopleController/Edit/5
         [HttpPut("{id}")]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [FromBody] PersonRequest personRequest)
         {
             var person = unitOfWork.PeopleRepository.GetById(id);
@@ -78,9 +75,7 @@ namespace MVC.Controllers
             return Ok(person);
         }
 
-        // POST: PeopleController/Delete/5
         [HttpDelete("{id}")]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             var person = unitOfWork.PeopleRepository.GetById(id);
