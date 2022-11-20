@@ -87,7 +87,7 @@ namespace MVC.Controllers
             if (person is null)
                 return NotFound("Person not found");
 
-            unitOfWork.PeopleRepository.Delete(person);
+            unitOfWork.PeopleRepository.Delete(person.Id);
             unitOfWork.SaveChanges();
             return Ok();
         }

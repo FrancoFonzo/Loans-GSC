@@ -28,9 +28,10 @@ namespace MVC.DataAccess
             modelBuilder.Entity<Person>()
                 .Property(p => p.Email)
                 .HasMaxLength(120)
-                .HasAnnotation("EmailAddress", true);
+                .HasAnnotation("EmailAddress", true)
+                .IsRequired();
 
-            
+
             modelBuilder.Entity<Thing>()
                 .Property(t => t.Description)
                 .HasMaxLength(100)
