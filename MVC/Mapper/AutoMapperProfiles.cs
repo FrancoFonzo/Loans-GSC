@@ -11,8 +11,10 @@ namespace MVC.Mapper
         {
             CreateMap<Category, CategoryResponse>()
                 .ForMember(dest => dest.Things, opt => opt.MapFrom(src => src.Things.Select(t => t.Description)));
-            
-            CreateMap<CategoryRequest, Category>().ReverseMap();            
+            CreateMap<CategoryRequest, Category>().ReverseMap();
+
+            CreateMap<Person, PersonResponse>().ReverseMap();
+            CreateMap<PersonRequest, Person>().ReverseMap();
 
             CreateMap<Thing, ThingViewModel>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
@@ -20,7 +22,6 @@ namespace MVC.Mapper
             CreateMap<Thing, CreateThingViewModel>()
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
                 .ReverseMap();
-
         }
     }
 }
