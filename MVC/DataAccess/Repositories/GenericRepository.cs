@@ -28,7 +28,7 @@ namespace MVC.DataAccess.Repositories
 
         public virtual T GetById(int id)
         {
-            return dbSet.FirstOrDefault(t => t.Id == id);
+            return dbSet.FirstOrDefault(t => t.Id == id)!;
         }
 
         public T Create(T entity)

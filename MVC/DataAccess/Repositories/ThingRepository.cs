@@ -18,7 +18,7 @@ namespace MVC.DataAccess.Repositories
 
         public Thing GetByIdWithCategory(int id)
         {
-            return dbSet.Include(x => x.Category).FirstOrDefault(t => t.Id == id);
+            return dbSet.Include(x => x.Category).FirstOrDefault(t => t.Id == id)!;
         }
     }
 }
