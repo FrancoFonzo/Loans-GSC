@@ -52,7 +52,9 @@ namespace MVC.Controllers
             var person = mapper.Map<Person>(personRequest);
             unitOfWork.PeopleRepository.Create(person);
             unitOfWork.SaveChanges();
-            return Ok(person);
+
+            var personResponse = mapper.Map<PersonResponse>(person);
+            return Ok(personResponse);
         }
 
         [HttpPut("{id}")]
@@ -72,7 +74,9 @@ namespace MVC.Controllers
             person = mapper.Map(personRequest, person);
             unitOfWork.PeopleRepository.Update(person);
             unitOfWork.SaveChanges();
-            return Ok(person);
+
+            var personResponse = mapper.Map<PersonResponse>(person);
+            return Ok(personResponse);
         }
 
         [HttpDelete("{id}")]

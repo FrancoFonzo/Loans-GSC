@@ -78,7 +78,9 @@ namespace MVC.Controllers
 
             unitOfWork.CategoriesRepository.Update(category);
             unitOfWork.SaveChanges();
-            return Ok(category);
+
+            var categoryResponse = mapper.Map<CategoryResponse>(category);
+            return Ok(categoryResponse);
         }
 
         [HttpDelete("{id}")]
