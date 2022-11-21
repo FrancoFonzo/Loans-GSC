@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MVC.DataAccess;
+using MVC.Protos;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,15 @@ builder.Services.AddDbContext<LoansContext>(options =>
 );
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddGrpc();
+builder.Services.AddGrpcReflection();
+
+//ignore json cycles
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 
@@ -30,6 +39,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapGrpcService<LoansService>();
+app.MapGrpcReflectionService();
 
 app.MapControllerRoute(
     name: "default",

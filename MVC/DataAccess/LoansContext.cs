@@ -55,19 +55,9 @@ namespace MVC.DataAccess
                 .HasIndex(c => c.Description)
                 .IsUnique();
 
-            //modelBuilder.Entity<Loan>()
-            //    .Property(l => l.CreateDate)
-            //    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            //modelBuilder.Entity<Loan>()
-            //    .Property(l => l.ReturnDate)
-            //    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            //modelBuilder.Entity<Loan>()
-            //    .HasOne(l => l.Person)
-            //    .WithMany(p => p.Loans)
-            //    .HasForeignKey(l => l.PersonId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Loan>()
+                .Property(l => l.CreateDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             //TODO: Unique constraint for thing description and person email/phone?
         }

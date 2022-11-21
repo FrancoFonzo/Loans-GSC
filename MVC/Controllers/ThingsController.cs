@@ -27,7 +27,7 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            var things = unitOfWork.ThingsRepository.GetAll();
+            var things = unitOfWork.ThingsRepository.GetAllWithCategory();
             var thingsResponses = mapper.Map<IEnumerable<ThingViewModel>>(things);
             return View(thingsResponses);
         }
@@ -39,7 +39,7 @@ namespace MVC.Controllers
                 return NotFound("Thing not found");
             }
 
-            var thing = unitOfWork.ThingsRepository.GetById(id.Value);
+            var thing = unitOfWork.ThingsRepository.GetByIdWithCategory(id.Value);
             if (thing is null)
             {
                 return NotFound("Thing not found");
@@ -62,8 +62,13 @@ namespace MVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var categories = unitOfWork.CategoriesRepository.GetAll();
-                ViewData["Categories"] = new SelectList(categories, "Id", "Description");
+                return View(thingVModel);
+            }
+            
+            var category = unitOfWork.CategoriesRepository.GetById(thingVModel.CategoryId);
+            if (category is null)
+            {
+                ModelState.AddModelError("CategoryId", "Category not found");
                 return View(thingVModel);
             }
 
@@ -80,7 +85,7 @@ namespace MVC.Controllers
                 return NotFound("Thing not found");
             }
 
-            var thing = unitOfWork.ThingsRepository.GetById(id.Value);
+            var thing = unitOfWork.ThingsRepository.GetByIdWithCategory(id.Value);
             if (thing is null)
             {
                 return NotFound("Thing not found");
@@ -92,12 +97,11 @@ namespace MVC.Controllers
             return View(thingVModel);
         }
 
-        // POST: Things/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, CreateThingViewModel thingVModel)
         {
-            var thing = unitOfWork.ThingsRepository.GetById(id);
+            var thing = unitOfWork.ThingsRepository.GetByIdWithCategory(id);
             if (thing is null)
             {
                 return NotFound("Thing not found");
@@ -115,7 +119,6 @@ namespace MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Things/Delete/5
         public IActionResult Delete(int? id)
         {
             if (id is null)
@@ -123,7 +126,7 @@ namespace MVC.Controllers
                 return NotFound("Thing not found");
             }
 
-            var thing = unitOfWork.ThingsRepository.GetById(id.Value);
+            var thing = unitOfWork.ThingsRepository.GetByIdWithCategory(id.Value);
             if (thing is null)
             {
                 return NotFound("Thing not found");
@@ -138,7 +141,7 @@ namespace MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var thing = unitOfWork.ThingsRepository.GetById(id);
+            var thing = unitOfWork.ThingsRepository.GetByIdWithCategory(id);
             if (thing is null)
             {
                 return NotFound("Thing not found");

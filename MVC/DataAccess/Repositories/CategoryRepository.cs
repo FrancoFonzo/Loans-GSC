@@ -9,20 +9,5 @@ namespace MVC.DataAccess.Repositories
         public CategoryRepository(LoansContext context) : base(context)
         {
         }
-
-        public override IList<Category> GetAll()
-        {
-            return dbSet.Include(c => c.Things).ToList();
-        }
-
-        public override Category GetById(int id)
-        {
-            return dbSet.Include(c => c.Things).FirstOrDefault(c => c.Id == id);
-        }
-
-        public override IList<Category> GetByFilter(Expression<Func<Category, bool>> filter)
-        {
-            return dbSet.Where(filter).Include(x => x.Things).ToList();
-        }
     }
 }

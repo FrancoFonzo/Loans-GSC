@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "MVC.Protos";
+
+service LoanService {
+	rpc SetReturnDate (LoanRequest) returns (LoanResponse) {}
+}
+
+message LoanRequest {
+	int32 id = 1;
+}
+
+message LoanResponse {
+	string message = 1;
+	bool success = 2;
+}
+
+

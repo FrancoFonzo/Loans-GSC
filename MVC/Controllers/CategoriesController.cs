@@ -31,7 +31,6 @@ namespace MVC.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCategory(int id)
         {
-            //TODO: check if map list<Things> of category
             var category = unitOfWork.CategoriesRepository.GetById(id);
             
             if (category is null)
@@ -55,7 +54,9 @@ namespace MVC.Controllers
 
             unitOfWork.CategoriesRepository.Create(category);
             unitOfWork.SaveChanges();
-            return Ok(category);
+
+            var categoryResponse = mapper.Map<CategoryResponse>(category);
+            return Ok(categoryResponse);
         }
 
         [HttpPut("{id}")]

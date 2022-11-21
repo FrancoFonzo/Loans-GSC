@@ -9,19 +9,17 @@ namespace MVC.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Category, CategoryResponse>()
-                .ForMember(dest => dest.Things, opt => opt.MapFrom(src => src.Things.Select(t => t.Description)));
-            CreateMap<CategoryRequest, Category>().ReverseMap();
+            CreateMap<Category, CategoryResponse>().ReverseMap();
+            CreateMap<Category, CategoryRequest>().ReverseMap();
 
             CreateMap<Person, PersonResponse>().ReverseMap();
-            CreateMap<PersonRequest, Person>().ReverseMap();
+            CreateMap<Person, PersonRequest>().ReverseMap();
 
-            CreateMap<Thing, ThingViewModel>()
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
-                .ReverseMap();
-            CreateMap<Thing, CreateThingViewModel>()
-                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
-                .ReverseMap();
+            CreateMap<Thing, ThingViewModel>().ReverseMap();
+            CreateMap<Thing, CreateThingViewModel>().ReverseMap();
+
+            CreateMap<Loan, LoanResponse>().ReverseMap();
+            CreateMap<Loan, LoanRequest>().ReverseMap();
         }
     }
 }

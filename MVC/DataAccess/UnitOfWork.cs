@@ -8,6 +8,7 @@ namespace MVC.DataAccess
         public ICategoryRepository CategoriesRepository { get; init; }
         public IPersonRepository PeopleRepository { get; init; }
         public IThingRepository ThingsRepository { get; init;  }
+        public ILoanRepository LoansRepository { get; init; }
 
         public UnitOfWork(LoansContext context)
         {
@@ -15,6 +16,7 @@ namespace MVC.DataAccess
             CategoriesRepository = new CategoryRepository(this.context);
             PeopleRepository = new PersonRepository(this.context);
             ThingsRepository = new ThingRepository(this.context);
+            LoansRepository = new LoanRepository(this.context);
         }
 
         public int SaveChanges()

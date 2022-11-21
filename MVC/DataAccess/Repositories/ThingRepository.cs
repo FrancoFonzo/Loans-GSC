@@ -11,19 +11,14 @@ namespace MVC.DataAccess.Repositories
             
         }
 
-        public override IList<Thing> GetAll()
+        public IList<Thing> GetAllWithCategory()
         {
             return dbSet.Include(x => x.Category).ToList();
         }
 
-        public override Thing GetById(int id)
+        public Thing GetByIdWithCategory(int id)
         {
             return dbSet.Include(x => x.Category).FirstOrDefault(t => t.Id == id);
-        }
-
-        public override IList<Thing> GetByFilter(Expression<Func<Thing, bool>> filter)
-        {
-            return dbSet.Where(filter).Include(x => x.Category).ToList();
         }
     }
 }

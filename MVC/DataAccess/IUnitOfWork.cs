@@ -7,6 +7,7 @@ namespace MVC.DataAccess
         public ICategoryRepository CategoriesRepository { get; init; }
         public IPersonRepository PeopleRepository { get; init; }
         public IThingRepository ThingsRepository { get; init; }
+        public ILoanRepository LoansRepository { get; init; }
 
         public int SaveChanges();
     }
