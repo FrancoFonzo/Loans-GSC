@@ -136,7 +136,6 @@ namespace MVC.Controllers
             return View(thingVModel);
         }
 
-        // POST: Things/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
