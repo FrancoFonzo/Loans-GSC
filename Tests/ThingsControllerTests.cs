@@ -40,7 +40,7 @@ namespace Tests
 
             // Assert
             result.Should().BeOfType<ViewResult>();
-            var viewResult = result as ViewResult;
+            var viewResult = result.As<ViewResult>();
             viewResult.Should().NotBeNull();
             viewResult!.Model.Should().BeOfType<List<ThingViewModel>>();
         }
@@ -72,7 +72,7 @@ namespace Tests
             var result = controller.Details(1);
 
             result.Should().BeOfType<ViewResult>();
-            var viewResult = result as ViewResult;
+            var viewResult = result.As<ViewResult>();
             viewResult.Should().NotBeNull();
             viewResult!.Model.Should().BeOfType<ThingViewModel>();
         }
@@ -112,7 +112,7 @@ namespace Tests
 
             controller.ModelState.IsValid.Should().BeTrue();
             result.Should().BeOfType<RedirectToActionResult>();
-            var redirectToActionResult = result as RedirectToActionResult;
+            var redirectToActionResult = result.As<RedirectToActionResult>();
             redirectToActionResult.Should().NotBeNull();
             redirectToActionResult!.ActionName.Should().Be("Index");
         }
@@ -145,7 +145,7 @@ namespace Tests
             var result = controller.Edit(1);
 
             result.Should().BeOfType<ViewResult>();
-            var viewResult = result as ViewResult;
+            var viewResult = result.As<ViewResult>();
             viewResult.Should().NotBeNull();
             viewResult!.Model.Should().BeOfType<CreateThingViewModel>();
         }
@@ -176,7 +176,7 @@ namespace Tests
 
             controller.ModelState.IsValid.Should().BeTrue();
             result.Should().BeOfType<RedirectToActionResult>();
-            var redirectToActionResult = result as RedirectToActionResult;
+            var redirectToActionResult = result.As<RedirectToActionResult>();
             redirectToActionResult.Should().NotBeNull();
             redirectToActionResult!.ActionName.Should().Be("Index");
         }
@@ -208,7 +208,7 @@ namespace Tests
             var result = controller.Delete(1);
 
             result.Should().BeOfType<ViewResult>();
-            var viewResult = result as ViewResult;
+            var viewResult = result.As<ViewResult>();
             viewResult.Should().NotBeNull();
             viewResult!.Model.Should().BeOfType<ThingViewModel>();
         }
@@ -221,7 +221,7 @@ namespace Tests
             var result = controller.DeleteConfirmed(1);
 
             result.Should().BeOfType<RedirectToActionResult>();
-            var redirectToActionResult = result as RedirectToActionResult;
+            var redirectToActionResult = result.As<RedirectToActionResult>();
             redirectToActionResult.Should().NotBeNull();
             redirectToActionResult!.ActionName.Should().Be("Index");
         }
