@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess;
-using MVC.Dto;
+using MVC.Dto.Requests;
+using MVC.Dto.Responses;
 using MVC.Entities;
-using MVC.Models;
 
 namespace MVC.Controllers
 {
@@ -32,10 +32,10 @@ namespace MVC.Controllers
         public IActionResult GetCategory(int id)
         {
             var category = unitOfWork.CategoriesRepository.GetById(id);
-            
+
             if (category is null)
                 return NotFound("Category not found");
-            
+
             var categoryResponse = mapper.Map<CategoryResponse>(category);
             return Ok(categoryResponse);
         }
@@ -87,7 +87,7 @@ namespace MVC.Controllers
         public IActionResult Delete(int id)
         {
             var category = unitOfWork.CategoriesRepository.GetById(id);
-            
+
             if (category is null)
                 return NotFound("Category not found");
 

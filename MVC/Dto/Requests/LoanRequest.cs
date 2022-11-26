@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVC.Dto
+namespace MVC.Dto.Requests
 {
     public class LoanRequest
     {

@@ -1,22 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MVC.Entities;
-using System.Linq.Expressions;
+using MVC.DataAccess.Repositories.Generic;
 
-namespace MVC.DataAccess.Repositories
+namespace MVC.DataAccess.Repositories.Thing
 {
-    public class ThingRepository : GenericRepository<Thing>, IThingRepository
+    public class ThingRepository : GenericRepository<Entities.Thing>, IThingRepository
     {
         public ThingRepository(LoansContext context) : base(context)
         {
-            
+
         }
 
-        public IList<Thing> GetAllWithCategory()
+        public IList<Entities.Thing> GetAllWithCategory()
         {
             return dbSet.Include(x => x.Category).ToList();
         }
 
-        public Thing GetByIdWithCategory(int id)
+        public Entities.Thing GetByIdWithCategory(int id)
         {
             return dbSet.Include(x => x.Category).FirstOrDefault(t => t.Id == id)!;
         }

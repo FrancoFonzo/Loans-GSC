@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System;
 using MVC.Entities;
-using MVC.Dto;
 
 namespace MVC.DataAccess
 {
     public class LoansContext : DbContext
     {
-        public LoansContext(DbContextOptions options): base(options)
+        public LoansContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -81,6 +78,7 @@ namespace MVC.DataAccess
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
+            //TODO: Delete when implement azure sql
             modelBuilder.Entity<User>()
                 .HasData(new User
                 {

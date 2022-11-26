@@ -1,19 +1,19 @@
-﻿using MVC.Entities;
+﻿using MVC.DataAccess.Repositories.Generic;
 
-namespace MVC.DataAccess.Repositories
+namespace MVC.DataAccess.Repositories.User
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<Entities.User>, IUserRepository
     {
         public UserRepository(LoansContext context) : base(context)
         {
         }
 
-        public User GetByUsername(string username)
+        public Entities.User GetByUsername(string username)
         {
             return dbSet.FirstOrDefault(x => x.Username == username);
         }
 
-        public User Login(string username, string password)
+        public Entities.User Login(string username, string password)
         {
             return dbSet.FirstOrDefault(x => x.Username == username && x.Password == password);
         }

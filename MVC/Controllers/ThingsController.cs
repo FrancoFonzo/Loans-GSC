@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using MVC.DataAccess;
-using MVC.Dto;
 using MVC.Entities;
 using MVC.Models;
 
@@ -18,11 +11,13 @@ namespace MVC.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly List<Category> categories;
 
         public ThingsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            categories = unitOfWork.CategoriesRepository.GetAll().ToList();
         }
 
         public IActionResult Index()
@@ -51,7 +46,6 @@ namespace MVC.Controllers
 
         public IActionResult Create()
         {
-            var categories = unitOfWork.CategoriesRepository.GetAll();
             ViewData["Categories"] = new SelectList(categories, "Id", "Description");
             return View();
         }
@@ -64,7 +58,7 @@ namespace MVC.Controllers
             {
                 return View(thingVModel);
             }
-            
+
             var category = unitOfWork.CategoriesRepository.GetById(thingVModel.CategoryId);
             if (category is null)
             {
@@ -92,7 +86,6 @@ namespace MVC.Controllers
             }
 
             var thingVModel = mapper.Map<CreateThingViewModel>(thing);
-            var categories = unitOfWork.CategoriesRepository.GetAll();
             ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
             return View(thingVModel);
         }
@@ -106,11 +99,10 @@ namespace MVC.Controllers
             {
                 return NotFound("Thing not found");
             }
-            
+
             if (!ModelState.IsValid)
             {
-                //var categories = unitOfWork.CategoriesRepository.GetAll();
-                //ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
+                ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
                 return View(thingVModel);
             }
             var thingToSave = mapper.Map<CreateThingViewModel, Thing>(thingVModel, thing);

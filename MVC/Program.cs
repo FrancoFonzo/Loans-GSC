@@ -5,20 +5,17 @@ using MVC.Configuration;
 using MVC.DataAccess;
 using MVC.Protos;
 using MVC.Services;
-using System.Security.Principal;
 using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<LoansContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LoansContextConn"))
 );
 
-//add cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularOrigin",
@@ -50,8 +47,8 @@ builder.Services.AddAuthentication(options =>
         o.RequireHttpsMetadata = false;
         o.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateIssuerSigningKey = true,
             ValidateLifetime = false,
             ValidIssuer = builder.Configuration.GetSection("JwtSettings:Issuer").Value,
@@ -64,7 +61,6 @@ builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
 builder.Services.AddAuthorization();
 
-//ignore json cycles
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

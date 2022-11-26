@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess;
-using MVC.Dto;
+using MVC.Dto.Requests;
+using MVC.Dto.Responses;
 using MVC.Entities;
 
 namespace MVC.Controllers
@@ -68,7 +69,7 @@ namespace MVC.Controllers
             var person = unitOfWork.PeopleRepository.GetById(id);
             if (person is null)
                 return NotFound("Person not found");
-            
+
             if (person.Name != personRequest.Name)
             {
                 var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
@@ -78,7 +79,7 @@ namespace MVC.Controllers
                     return BadRequest(ModelState);
                 }
             }
-            
+
             person = mapper.Map(personRequest, person);
             unitOfWork.PeopleRepository.Update(person);
             unitOfWork.SaveChanges();

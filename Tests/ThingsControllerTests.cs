@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MVC.Controllers;
 using MVC.DataAccess;
-using MVC.DataAccess.Repositories;
 using MVC.Entities;
 using MVC.Models;
 
@@ -171,7 +170,7 @@ namespace Tests
                 Description = "Thing 1",
                 CategoryId = 1
             };
-            
+
             var result = controller.Edit(1, createThingViewModel);
 
             controller.ModelState.IsValid.Should().BeTrue();

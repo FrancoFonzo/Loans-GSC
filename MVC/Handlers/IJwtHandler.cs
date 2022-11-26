@@ -1,4 +1,4 @@
-﻿using MVC.Dto;
+﻿using MVC.Dto.Requests;
 using MVC.Entities;
 
 namespace MVC.Services

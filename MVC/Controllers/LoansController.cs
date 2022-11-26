@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess;
-using MVC.Dto;
+using MVC.Dto.Requests;
+using MVC.Dto.Responses;
 using MVC.Entities;
 
 namespace MVC.Controllers

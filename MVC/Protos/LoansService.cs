@@ -1,6 +1,6 @@
-﻿using Grpc.Core;
+﻿using AutoMapper;
+using Grpc.Core;
 using MVC.DataAccess;
-using AutoMapper;
 
 namespace MVC.Protos
 {
@@ -14,11 +14,11 @@ namespace MVC.Protos
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        
+
         public override Task<LoanResponse> SetReturnDate(LoanRequest request, ServerCallContext context)
         {
             var loan = unitOfWork.LoansRepository.GetById(request.Id);
-            
+
             if (loan is null)
                 throw new RpcException(new Status(StatusCode.NotFound, "Loan not found"));
 

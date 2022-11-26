@@ -1,6 +1,6 @@
-﻿using MVC.Entities;
+﻿using MVC.DataAccess.Repositories.Generic;
 
-namespace MVC.DataAccess.Repositories
+namespace MVC.DataAccess.Repositories.Person
 {
     public class PersonRepository : GenericRepository<Person>, IPersonRepository
     {

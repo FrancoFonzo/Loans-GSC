@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MVC.Entities;
-using System.Linq;
 using System.Linq.Expressions;
 
-namespace MVC.DataAccess.Repositories
+namespace MVC.DataAccess.Repositories.Generic
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {
@@ -38,7 +37,7 @@ namespace MVC.DataAccess.Repositories
         }
 
         public T Update(T entity)
-        {            
+        {
             var savedEntity = dbSet.Update(entity);
             return savedEntity.Entity;
         }

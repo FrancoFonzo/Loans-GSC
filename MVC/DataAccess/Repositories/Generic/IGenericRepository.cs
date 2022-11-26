@@ -1,7 +1,7 @@
 ﻿using MVC.Entities;
 using System.Linq.Expressions;
 
-namespace MVC.DataAccess.Repositories
+namespace MVC.DataAccess.Repositories.Generic
 {
     public interface IGenericRepository<T> where T : EntityBase
     {

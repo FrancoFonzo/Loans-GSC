@@ -1,4 +1,8 @@
-﻿using MVC.DataAccess.Repositories;
+﻿using MVC.DataAccess.Repositories.Category;
+using MVC.DataAccess.Repositories.Loan;
+using MVC.DataAccess.Repositories.Person;
+using MVC.DataAccess.Repositories.Thing;
+using MVC.DataAccess.Repositories.User;
 
 namespace MVC.DataAccess
 {
@@ -7,7 +11,7 @@ namespace MVC.DataAccess
         private readonly LoansContext context;
         public ICategoryRepository CategoriesRepository { get; init; }
         public IPersonRepository PeopleRepository { get; init; }
-        public IThingRepository ThingsRepository { get; init;  }
+        public IThingRepository ThingsRepository { get; init; }
         public ILoanRepository LoansRepository { get; init; }
         public IUserRepository UsersRepository { get; init; }
 
@@ -25,6 +29,6 @@ namespace MVC.DataAccess
         public int SaveChanges()
         {
             return context.SaveChanges();
-        }   
+        }
     }
 }

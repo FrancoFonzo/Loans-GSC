@@ -1,11 +1,10 @@
-﻿namespace MVC.Entities
+﻿namespace MVC.Dto.Responses
 {
-    public class Person : EntityBase
+    public class PersonResponse
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-
-        public IList<Loan>? Loans { get; set; }
     }
 }

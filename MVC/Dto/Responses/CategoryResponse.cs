@@ -1,6 +1,4 @@
-﻿using MVC.Models;
-
-namespace MVC.Dto
+﻿namespace MVC.Dto.Responses
 {
     public class CategoryResponse
     {

@@ -1,5 +1,4 @@
-﻿using MVC.Dto;
-using System.ComponentModel.DataAnnotations;
+﻿using MVC.Dto.Responses;
 
 namespace MVC.Models
 {

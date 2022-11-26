@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MVC.Configuration;
-using MVC.DataAccess;
-using MVC.Dto;
+using MVC.Dto.Requests;
 using MVC.Entities;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -20,7 +17,7 @@ namespace MVC.Services
         {
             this.jwtOptions = jwtOptions.Value;
         }
-        
+
         public string GenerateToken(AuthRequest user, Role rol)
         {
             var signingCredentials = GetSigningCredentials();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess;
 using MVC.Dto;
+using MVC.Dto.Requests;
 using MVC.Services;
 
 namespace MVC.Controllers
@@ -25,19 +26,18 @@ namespace MVC.Controllers
 
             if (user is null)
                 ModelState.AddModelError("login_error", "Incorrect username or password");
-            
+
             if (!ModelState.IsValid)
             {
-                // //Tomo siempre el primer error para simplificar
-                var message = ModelState.Values.FirstOrDefault(X => X.Errors.Count > 0)?.Errors.FirstOrDefault(x => x.ErrorMessage != null).ErrorMessage;
-                response.Message = message;
+                var message = ModelState.Values.FirstOrDefault(X => X.Errors.Count > 0)?.Errors.FirstOrDefault(x => x.ErrorMessage != null)?.ErrorMessage;
+                response.Message = message!;
                 response.Success = false;
                 return Unauthorized(response);
             }
 
             response.Message = "Success";
             response.Success = true;
-            response.Token = jwtHandler.GenerateToken(userRequest, user.Role);
+            response.Token = jwtHandler.GenerateToken(userRequest, user!.Role);
             return Ok(response);
         }
     }
