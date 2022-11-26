@@ -41,7 +41,6 @@ namespace MVC.DataAccess
               .Property(t => t.CreationDate)
               .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-
             modelBuilder.Entity<Category>()
                 .Property(c => c.Description)
                 .HasMaxLength(100)
@@ -59,12 +58,52 @@ namespace MVC.DataAccess
                 .Property(l => l.CreateDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            //TODO: Unique constraint for thing description and person email/phone?
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Username)
+                .HasAnnotation("MinLength", 4);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Username)
+                .HasMaxLength(32)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Password)
+                .HasAnnotation("MinLength", 4);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Password)
+                .HasMaxLength(128)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    Username = "admin",
+                    Password = "admin",
+                    Role = Role.Admin
+                });
+
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 2,
+                    Username = "francofonzo",
+                    Password = "123456",
+                    Role = Role.User
+                });
         }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<Thing> Things { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

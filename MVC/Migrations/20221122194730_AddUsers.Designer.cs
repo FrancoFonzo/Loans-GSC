@@ -4,6 +4,7 @@ using MVC.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC.Migrations
 {
     [DbContext(typeof(LoansContext))]
-    partial class LoansContextModelSnapshot : ModelSnapshot
+    [Migration("20221122194730_AddUsers")]
+    partial class AddUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,22 +167,6 @@ namespace MVC.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Password = "admin",
-                            Role = 1,
-                            Username = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Password = "123456",
-                            Role = 2,
-                            Username = "francofonzo"
-                        });
                 });
 
             modelBuilder.Entity("MVC.Entities.Loan", b =>

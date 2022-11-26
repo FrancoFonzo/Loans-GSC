@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess;
 using MVC.Dto;
@@ -20,6 +21,7 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult GetAll()
         {
             var people = unitOfWork.PeopleRepository.GetAll();
@@ -28,6 +30,7 @@ namespace MVC.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult GetPerson(int id)
         {
             var person = unitOfWork.PeopleRepository.GetById(id);
@@ -40,6 +43,7 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create([FromBody] PersonRequest personRequest)
         {
             var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
@@ -58,19 +62,23 @@ namespace MVC.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, [FromBody] PersonRequest personRequest)
         {
             var person = unitOfWork.PeopleRepository.GetById(id);
             if (person is null)
                 return NotFound("Person not found");
-
-            var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
-            if (personExists)
+            
+            if (person.Name != personRequest.Name)
             {
-                ModelState.AddModelError(nameof(personRequest.Name), "Person already exist");
-                return BadRequest(ModelState);
+                var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
+                if (personExists)
+                {
+                    ModelState.AddModelError(nameof(personRequest.Name), "Person already exist");
+                    return BadRequest(ModelState);
+                }
             }
-
+            
             person = mapper.Map(personRequest, person);
             unitOfWork.PeopleRepository.Update(person);
             unitOfWork.SaveChanges();
@@ -80,6 +88,7 @@ namespace MVC.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var person = unitOfWork.PeopleRepository.GetById(id);
