@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Dashboard",
+        "redirectTo": "/dashboard"
+    },
+    {
+        "name": "People",
+        "redirectTo": "/dashboard/people"
+    }
+]

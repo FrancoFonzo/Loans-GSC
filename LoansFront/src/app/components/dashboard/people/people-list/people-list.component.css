@@ -1,0 +1,36 @@
+table{
+    width: 100%;
+}
+
+th{
+    width: 20%;
+}
+
+th:last-child{
+    width: max-content;
+}
+
+.mat-form-field{
+    width: 100%;
+}
+
+.add-button{
+    background-color: rgb(0, 160, 0);
+    color: #f5f5f5;
+    width: min-content;
+    height: min-content;
+}
+
+.actions-buttons{
+    text-align: end;
+}
+
+.actions-buttons button{
+    margin-right: 5px;
+}
+
+.actions-buttons button:last-child{
+    margin-right: 0;
+    color: #fff;
+    background-color: rgb(225, 0, 0);
+}

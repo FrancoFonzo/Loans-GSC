@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+    <span>Loans</span>
+    <span class="spacer"></span>
+    <button mat-button *ngFor="let item of menu" [routerLink]="item.redirectTo">{{item.name}}</button>
+    <span class="spacer"></span>
+    <button routerLink="/" mat-icon-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar>
+  

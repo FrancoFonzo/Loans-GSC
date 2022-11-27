@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Login", "Login\Login.esproj", "{AB3B03F6-9FE0-4E32-9BF9-B7A932CDC80B}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LoansFront", "LoansFront\LoansFront.esproj", "{AB3B03F6-9FE0-4E32-9BF9-B7A932CDC80B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{F2511522-74F6-402B-A27C-DC595DA605D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoansAPI", "LoansAPI\LoansAPI.csproj", "{F2511522-74F6-402B-A27C-DC595DA605D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{E1B10A50-B445-4CA0-BFEA-BF51DDECE6A8}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{608D9001-A44D-4C14-BDA7-2342D4DA7FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{608D9001-A44D-4C14-BDA7-2342D4DA7FFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

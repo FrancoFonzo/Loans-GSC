@@ -1,0 +1,31 @@
+<div class="container">
+    <mat-toolbar class="toolbar">
+        <span>New Person</span>
+    </mat-toolbar> 
+    <div class="form-container">
+        <form [formGroup]="formPerson" (ngSubmit)="create(formPerson.value)">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Ex. Franco Fonzo" formControlName="name">
+                <mat-error *ngIf="!isValid('name')">{{getMessage("name")}}</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Ex. 1234567890" formControlName="phoneNumber">
+                <mat-error *ngIf="!isValid('phoneNumber')">{{getMessage("phoneNumber")}}</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Ex. some@email.com" formControlName="email">
+                <mat-error *ngIf="!isValid('email')">{{getMessage("email")}}</mat-error>
+            </mat-form-field>
+    
+            <div class="buttons">
+                <button mat-raised-button color="primary" type="submit">Create</button>
+                <button mat-raised-button color="warn" type="button" routerLink="/dashboard/people">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

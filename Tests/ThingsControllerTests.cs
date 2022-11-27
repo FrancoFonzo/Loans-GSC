@@ -2,10 +2,10 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using MVC.Controllers;
-using MVC.DataAccess;
-using MVC.Entities;
-using MVC.Models;
+using LoansAPI.Controllers;
+using LoansAPI.DataAccess;
+using LoansAPI.Entities;
+using LoansAPI.Models;
 
 namespace Tests
 {
@@ -258,7 +258,7 @@ namespace Tests
                 new ThingViewModel {
                     Id = 1,
                     Description = "Thing 1",
-                    Category = new MVC.Dto.CategoryResponse
+                    Category = new LoansAPI.Dto.Responses.CategoryResponse
                     {
                         Id = 1,
                         Description = "Category 1"
@@ -267,7 +267,7 @@ namespace Tests
                 new ThingViewModel {
                     Id = 2,
                     Description = "Thing 2",
-                    Category = new MVC.Dto.CategoryResponse
+                    Category = new LoansAPI.Dto.Responses.CategoryResponse
                     {
                         Id = 2,
                         Description = "Category 2"
