@@ -79,13 +79,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("AllowAngularOrigin");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGrpcService<LoansService>();
 app.MapGrpcReflectionService();
-
-app.UseCors("AllowAngularOrigin");
 
 app.MapControllerRoute(
     name: "default",
