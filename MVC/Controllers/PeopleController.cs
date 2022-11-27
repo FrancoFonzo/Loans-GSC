@@ -48,10 +48,8 @@ namespace MVC.Controllers
         public IActionResult Create([FromBody] PersonRequest personRequest)
         {
             var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
-            if (personExists)
-            {
-                ModelState.AddModelError(nameof(personRequest.Name), "Person already exist");
-                return BadRequest(ModelState);
+            if (personExists) {
+                return Conflict("Person already exists");
             }
 
             var person = mapper.Map<Person>(personRequest);
@@ -75,8 +73,7 @@ namespace MVC.Controllers
                 var personExists = unitOfWork.PeopleRepository.Exists(p => p.Name == personRequest.Name);
                 if (personExists)
                 {
-                    ModelState.AddModelError(nameof(personRequest.Name), "Person already exist");
-                    return BadRequest(ModelState);
+                    return Conflict("Person already exists");
                 }
             }
 

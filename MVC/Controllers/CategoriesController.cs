@@ -46,8 +46,7 @@ namespace MVC.Controllers
             var catExists = unitOfWork.CategoriesRepository.Exists(c => c.Description == categoryRequest.Description);
             if (catExists)
             {
-                ModelState.AddModelError(nameof(categoryRequest.Description), "Category already exist");
-                return BadRequest(ModelState);
+                return Conflict("Category already exists");
             }
 
             var category = mapper.Map<Category>(categoryRequest);
@@ -70,8 +69,7 @@ namespace MVC.Controllers
             var catExists = unitOfWork.CategoriesRepository.Exists(c => c.Description == categoryRequest.Description);
             if (catExists)
             {
-                ModelState.AddModelError(nameof(categoryRequest.Description), "Category already exist");
-                return BadRequest(ModelState);
+                return Conflict("Category already exists");
             }
 
             category.Description = categoryRequest.Description;

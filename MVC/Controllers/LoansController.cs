@@ -47,11 +47,11 @@ namespace MVC.Controllers
 
             var thing = unitOfWork.ThingsRepository.GetById(loan.ThingId);
             if (thing is null)
-                return BadRequest("Thing not found");
+                return NotFound("Thing not found");
 
             var person = unitOfWork.PeopleRepository.GetById(loan.PersonId);
             if (person is null)
-                return BadRequest("Person not found");
+                return NotFound("Person not found");
 
             unitOfWork.LoansRepository.Create(loan);
             unitOfWork.SaveChanges();
