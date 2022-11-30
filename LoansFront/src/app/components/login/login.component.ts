@@ -36,12 +36,9 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(user).subscribe({
       next: (authResponse: AuthResponse) => {
-        if (!authResponse.success) {
-          this.formLogin.reset();
-          return;
-        }
-        this.router.navigate(["dashboard"]);
-      }});
+        this.router.navigate(["/"]);
+      }
+    });
   }
 
   isValid(field: string): boolean | undefined {

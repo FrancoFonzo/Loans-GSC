@@ -20,21 +20,20 @@ namespace LoansAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] AuthRequest userRequest)
+        public IActionResult Login([FromBody] AuthRequest request)
         {
-            var response = new AuthResponse();
-            var user = unitOfWork.UsersRepository.Login(userRequest.Username, userRequest.Password);
+            var user = unitOfWork.UsersRepository.Login(request.Username, request.Password);
 
             if (user is null)
             {
-                response.Message = "Incorrect username or password";
-                response.Success = false;
-                return Unauthorized(response);
+                return Unauthorized("Incorrect username or password");
             }
 
-            response.Message = "Successfully logged in";
-            response.Success = true;
-            response.Token = jwtHandler.GenerateToken(userRequest, user.Role);
+            var response = new AuthResponse
+            {
+                Token = jwtHandler.GenerateToken(request, user.Role)
+            };
+            
             return Ok(response);
         }
     }

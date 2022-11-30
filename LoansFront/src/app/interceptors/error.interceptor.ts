@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               this.notification.showError("The server could not understand the request due to invalid syntax.");
               break;
             case 401:
-              this.notification.showError(error.error.message);
+              this.notification.showError(error.error);
               break;
             case 403:
               this.notification.showError("You are not authorized to perform this action.");

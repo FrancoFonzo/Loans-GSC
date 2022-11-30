@@ -19,7 +19,6 @@ export class AuthService {
     return this.http.post<AuthResponse>(URL, authRequest)
       .pipe(map((authResponse: AuthResponse) => {
         this.saveToken(authResponse.token);
-        this.notification.showSuccess(authResponse.message);
         return authResponse;
       }));
   }
