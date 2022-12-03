@@ -79,25 +79,6 @@ namespace LoansAPI.DataAccess
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
-
-            //TODO: Delete if implement azure sql
-            modelBuilder.Entity<User>()
-                .HasData(new User
-                {
-                    Id = 1,
-                    Username = "admin",
-                    Password = "admin",
-                    Role = Role.Admin
-                });
-
-            modelBuilder.Entity<User>()
-                .HasData(new User
-                {
-                    Id = 2,
-                    Username = "francofonzo",
-                    Password = "123456",
-                    Role = Role.User
-                });
         }
 
         public DbSet<Category> Categories { get; set; } = null!;

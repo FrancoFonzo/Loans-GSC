@@ -7,14 +7,25 @@ using LoansAPI.Protos;
 using LoansAPI.Services;
 using System.Text;
 using System.Text.Json.Serialization;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<LoansContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LoansContextConn"))
-);
+{
+    var keyVaultUrl = builder.Configuration.GetSection("KeyVaultConfig:Url").Value!;
+    var clientId = builder.Configuration.GetSection("KeyVaultConfig:ClientId").Value;
+    var tenantId = builder.Configuration.GetSection("KeyVaultConfig:TenantId").Value;
+    var clientSecretId = builder.Configuration.GetSection("KeyVaultConfig:ClientSecretId").Value;
+
+    var credential = new ClientSecretCredential(tenantId, clientId, clientSecretId);
+    var client = new SecretClient(new Uri(keyVaultUrl), credential);
+    var secret = client.GetSecret("ConnectionStrings--LoansProdConnection").Value.Value;
+    options.UseSqlServer(secret);
+});
 
 builder.Services.AddCors(options =>
 {
