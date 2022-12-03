@@ -38,10 +38,10 @@ else
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularOrigin",
-        builder =>
+    options.AddPolicy("AllowAngularOrigins",
+        blder =>
         {
-            builder.WithOrigins("http://localhost:4200")
+            blder.WithOrigins("http://localhost:4200", builder.Configuration.GetSection("SPA-BaseURL").Value!)
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
@@ -99,7 +99,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors("AllowAngularOrigin");
+app.UseCors("AllowAngularOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
