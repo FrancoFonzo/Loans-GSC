@@ -57,7 +57,7 @@ namespace Tests
         {
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns((Thing)null!);
 
-            var result = controller.Details(1);
+            var result = controller.Details(It.IsAny<int>());
 
             result.Should().BeOfType<NotFoundObjectResult>();
         }
@@ -68,7 +68,7 @@ namespace Tests
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
             mapperMock.Setup(m => m.Map<ThingViewModel>(things.First())).Returns(thingVModels.First());
 
-            var result = controller.Details(1);
+            var result = controller.Details(It.IsAny<int>());
 
             result.Should().BeOfType<ViewResult>();
             var viewResult = result.As<ViewResult>();
@@ -129,7 +129,7 @@ namespace Tests
         {
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetById(It.IsAny<int>())).Returns((Thing)null!);
 
-            var result = controller.Edit(1);
+            var result = controller.Edit(It.IsAny<int>());
 
             result.Should().BeOfType<NotFoundObjectResult>();
         }
@@ -141,7 +141,7 @@ namespace Tests
             mapperMock.Setup(m => m.Map<CreateThingViewModel>(things.First())).Returns(new CreateThingViewModel());
             unitOfWorkMock.Setup(u => u.CategoriesRepository.GetAll()).Returns(GetCategories());
 
-            var result = controller.Edit(1);
+            var result = controller.Edit(It.IsAny<int>());
 
             result.Should().BeOfType<ViewResult>();
             var viewResult = result.As<ViewResult>();
@@ -153,6 +153,7 @@ namespace Tests
         public void Edit_ShouldReturnView_WhenModelStateIsInvalid()
         {
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
+            unitOfWorkMock.Setup(u => u.CategoriesRepository.GetAll()).Returns(GetCategories());
             controller.ModelState.AddModelError("Name", "Name is required");
 
             var result = controller.Edit(1, new CreateThingViewModel());
@@ -171,7 +172,7 @@ namespace Tests
                 CategoryId = 1
             };
 
-            var result = controller.Edit(1, createThingViewModel);
+            var result = controller.Edit(It.IsAny<int>(), createThingViewModel);
 
             controller.ModelState.IsValid.Should().BeTrue();
             result.Should().BeOfType<RedirectToActionResult>();
@@ -193,7 +194,7 @@ namespace Tests
         {
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns((Thing)null!);
 
-            var result = controller.Delete(1);
+            var result = controller.Delete(It.IsAny<int>());
 
             result.Should().BeOfType<NotFoundObjectResult>();
         }
@@ -204,7 +205,7 @@ namespace Tests
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
             mapperMock.Setup(m => m.Map<ThingViewModel>(things.First())).Returns(thingVModels.First());
 
-            var result = controller.Delete(1);
+            var result = controller.Delete(It.IsAny<int>());
 
             result.Should().BeOfType<ViewResult>();
             var viewResult = result.As<ViewResult>();
@@ -217,7 +218,7 @@ namespace Tests
         {
             unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
 
-            var result = controller.DeleteConfirmed(1);
+            var result = controller.DeleteConfirmed(It.IsAny<int>());
 
             result.Should().BeOfType<RedirectToActionResult>();
             var redirectToActionResult = result.As<RedirectToActionResult>();

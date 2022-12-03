@@ -11,13 +11,11 @@ namespace LoansAPI.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly List<Category> categories;
 
         public ThingsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            categories = unitOfWork.CategoriesRepository.GetAll().ToList();
         }
 
         public IActionResult Index()
@@ -46,6 +44,7 @@ namespace LoansAPI.Controllers
 
         public IActionResult Create()
         {
+            var categories = unitOfWork.CategoriesRepository.GetAll();
             ViewData["Categories"] = new SelectList(categories, "Id", "Description");
             return View();
         }
@@ -84,7 +83,8 @@ namespace LoansAPI.Controllers
             {
                 return NotFound("Thing not found");
             }
-
+            
+            var categories = unitOfWork.CategoriesRepository.GetAll();
             var thingVModel = mapper.Map<CreateThingViewModel>(thing);
             ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
             return View(thingVModel);
@@ -102,6 +102,7 @@ namespace LoansAPI.Controllers
 
             if (!ModelState.IsValid)
             {
+                var categories = unitOfWork.CategoriesRepository.GetAll();
                 ViewData["Categories"] = new SelectList(categories, "Id", "Description", thingVModel.CategoryId);
                 return View(thingVModel);
             }
