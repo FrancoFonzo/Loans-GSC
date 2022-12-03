@@ -14,20 +14,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+var keyVaultUrl = builder.Configuration.GetSection("KeyVaultConfig:Url").Value!;
+var clientId = builder.Configuration.GetSection("KeyVaultConfig:ClientId").Value;
+var tenantId = builder.Configuration.GetSection("KeyVaultConfig:TenantId").Value;
+var clientSecretId = builder.Configuration.GetSection("KeyVaultConfig:ClientSecretId").Value;
+
+var credential = new ClientSecretCredential(tenantId, clientId, clientSecretId);
+var client = new SecretClient(new Uri(keyVaultUrl), credential);
+
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!;
 if (environment.Equals("Release"))
 {
     builder.Services.AddDbContext<LoansContext>(options =>
     {
-        var keyVaultUrl = builder.Configuration.GetSection("KeyVaultConfig:Url").Value!;
-        var clientId = builder.Configuration.GetSection("KeyVaultConfig:ClientId").Value;
-        var tenantId = builder.Configuration.GetSection("KeyVaultConfig:TenantId").Value;
-        var clientSecretId = builder.Configuration.GetSection("KeyVaultConfig:ClientSecretId").Value;
-
-        var credential = new ClientSecretCredential(tenantId, clientId, clientSecretId);
-        var client = new SecretClient(new Uri(keyVaultUrl), credential);
-        var secret = client.GetSecret("ConnectionStrings--LoansProdConnection").Value.Value;
-        options.UseSqlServer(secret);
+        var connSecret= client.GetSecret("ConnectionStrings--LoansProdConnection").Value.Value;
+        options.UseSqlServer(connSecret);
     });
 }
 else
@@ -62,7 +63,6 @@ builder.Services.AddAuthentication(options =>
     })
     .AddJwtBearer(o =>
     {
-
         o.SaveToken = true;
         o.RequireHttpsMetadata = false;
         o.TokenValidationParameters = new TokenValidationParameters
@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(options =>
             ValidateLifetime = false,
             ValidIssuer = builder.Configuration.GetSection("JwtSettings:Issuer").Value,
             ValidAudience = builder.Configuration.GetSection("JwtSettings:Audience").Value,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtSettings:Key").Value!))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(client.GetSecret("JWT-Secret").Value.Value))
         };
     });
 
