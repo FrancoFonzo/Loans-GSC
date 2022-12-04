@@ -8,11 +8,16 @@ Proyecto final para el curso de desarrollo Fullstack con Angular y .NET. Dictado
 ## Descripción
 El proyecto consiste en un sistema de préstamos de cosas/objetos, el cual permite registrar y administrar las cosas, su categoría, a quien y cuando las prestamos.
 
-El sistema puede ser utilizado por cualquier persona que posea un usuario con el rol de "User" o "Admin".
+El sistema puede ser utilizado por cualquier persona que posea un usuario con el rol de "User" o "Admin". La autenticación y autorización esta basado en JWT.
 El User tiene permitidas tareas de visualización de la información.
 El Admin esta autorizado a realizar tareas de gestión de personas, cosas, categorías, y prestamos.
-El registro de usuarios esta solamente habilitado por el Administrador de la Base de datos.
-El sistema de autenticación y autorización esta basado en JWT.
+Los usuarios de prueba son:
+- Admin 
+  - usuario: admin
+  - contraseña: admin
+- User
+  - usuario: francofonzo
+  - contraseña: 123456
 
 El proyecto esta implementado en Azure DevOps, con 2 pipelines para CI/CD, y despliegue en 2 Azure App Service. Uno para la aplicacion Angular y otro para la Web API.
 Los datos están almacenados en una base de datos en Azure SQL Server. La aplicación también se puede utilizar usando una conexión local cambiando la variable de entorno ASPNETCORE_ENVIRONMENT a "Development".
