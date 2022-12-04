@@ -30,7 +30,6 @@ namespace LoansAPI.Services
 
         public SigningCredentials GetSigningCredentials()
         {
-            //Esto debe ser configurable por ambiente. Secret Manager podria ser una solucion https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key));
 
             return new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
