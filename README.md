@@ -6,10 +6,10 @@ Proyecto final para el curso de desarrollo Fullstack con Angular y .NET. Dictado
 ### [MVC Things Controller](https://loans-api.azurewebsites.net/things)
 
 ## Descripción
-El proyecto consiste en un sistema de préstamos de cosas/objetos, el cual permite registrar y administrar las cosas, su categoría, a quien y cuando las que prestamos.
+El proyecto consiste en un sistema de préstamos de cosas/objetos, el cual permite registrar y administrar las cosas, su categoría, a quien y cuando las prestamos.
 
-El sistema puede ser utilizado por cualquier persona que posea un usuario con el rol de "Usuario" o "Admin".
-El Usuario tiene permitidas tareas de visualización de la información.
+El sistema puede ser utilizado por cualquier persona que posea un usuario con el rol de "User" o "Admin".
+El User tiene permitidas tareas de visualización de la información.
 El Admin esta autorizado a realizar tareas de gestión de personas, cosas, categorías, y prestamos.
 El registro de usuarios esta solamente habilitado por el Administrador de la Base de datos.
 El sistema de autenticación y autorización esta basado en JWT.
@@ -20,9 +20,7 @@ Los datos están almacenados en una base de datos en Azure SQL Server. La aplica
 ## Tecnologías
 Las tecnologías que se usaron para la realización de este proyecto son:
 - Backend
-  - .NET 6 
-  - ASP.NET Core MVC
-  - ASP.NET CORE Web Api
+  - ASP.NET Core 6
   - Microsoft SQL Server, Azure SQL Server, Azure SQL Database
   - Entity Framework Core
   - AutoMapper
