@@ -182,6 +182,41 @@ namespace Tests
         }
 
         [Fact]
+        public void Edit_ShouldCallUpdate_WhenModelStateIsValid()
+        {
+            unitOfWorkMock.Setup(u => u.CategoriesRepository.GetById(It.IsAny<int>())).Returns(GetCategories().First());
+            unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
+            unitOfWorkMock.Setup(u => u.ThingsRepository.Update(It.IsAny<Thing>()));
+            var createThingViewModel = new CreateThingViewModel
+            {
+                Description = "Thing 1",
+                CategoryId = 1
+            };
+
+            var result = controller.Edit(It.IsAny<int>(), createThingViewModel);
+
+            unitOfWorkMock.Verify(u => u.ThingsRepository.Update(It.IsAny<Thing>()), Times.Once);
+        }
+
+        [Fact]
+        public void Edit_ShouldCallSave_WhenModelStateIsValid()
+        {
+            unitOfWorkMock.Setup(u => u.CategoriesRepository.GetById(It.IsAny<int>())).Returns(GetCategories().First());
+            unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
+            unitOfWorkMock.Setup(u => u.ThingsRepository.Update(It.IsAny<Thing>()));
+            unitOfWorkMock.Setup(u => u.SaveChanges());
+            var createThingViewModel = new CreateThingViewModel
+            {
+                Description = "Thing 1",
+                CategoryId = 1
+            };
+
+            var result = controller.Edit(It.IsAny<int>(), createThingViewModel);
+
+            unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Once);
+        }
+
+        [Fact]
         public void Delete_ShouldReturnNotFound_WhenIdIsNull()
         {
             var result = controller.Delete(null);
@@ -224,6 +259,26 @@ namespace Tests
             var redirectToActionResult = result.As<RedirectToActionResult>();
             redirectToActionResult.Should().NotBeNull();
             redirectToActionResult!.ActionName.Should().Be("Index");
+        }
+
+        [Fact]
+        public void DeleteConfirmed_ShouldCallDelete()
+        {
+            unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
+
+            var result = controller.DeleteConfirmed(It.IsAny<int>());
+
+            unitOfWorkMock.Verify(u => u.ThingsRepository.Delete(It.IsAny<int>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteConfirmed_ShouldCallSaveChanges()
+        {
+            unitOfWorkMock.Setup(u => u.ThingsRepository.GetByIdWithCategory(It.IsAny<int>())).Returns(things.First());
+
+            var result = controller.DeleteConfirmed(It.IsAny<int>());
+
+            unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Once);
         }
 
         private static IList<Thing> GetThings()

@@ -7,7 +7,5 @@ namespace LoansAPI.DataAccess.Repositories.Loan
         IList<Entities.Loan> GetAllWithPersonThing();
 
         Entities.Loan GetByIdWithPersonThing(int id);
-
-        bool SetReturnDate(int id);
     }
 }

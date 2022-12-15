@@ -19,12 +19,5 @@ namespace LoansAPI.DataAccess.Repositories.Loan
         {
             return dbSet.Include(l => l.Person).Include(l => l.Thing).FirstOrDefault(l => l.Id == id)!;
         }
-
-        public bool SetReturnDate(int id)
-        {
-            var loan = GetById(id);
-            loan.ReturnDate = DateTime.Now;
-            return true;
-        }
     }
 }

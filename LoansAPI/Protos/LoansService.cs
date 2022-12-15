@@ -22,8 +22,13 @@ namespace LoansAPI.Protos
             if (loan is null)
                 throw new RpcException(new Status(StatusCode.NotFound, "Loan not found"));
 
-            unitOfWork.LoansRepository.SetReturnDate(request.Id);
+            if (loan.ReturnDate is not null)
+                throw new RpcException(new Status(StatusCode.AlreadyExists, "Loan already returned"));
+
+            loan.ReturnDate = DateTime.UtcNow;
+            unitOfWork.LoansRepository.Update(loan);
             unitOfWork.SaveChanges();
+            
             return Task.FromResult(new LoanResponse
             {
                 Message = "Loan return date successfully updated",
